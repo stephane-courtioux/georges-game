@@ -1,0 +1,164 @@
+/* Les couleurs viennent des variables --xxx posées sur .frame par Game.js (objet THEME). */
+
+/* Le cadre : prend toute la largeur disponible (max-width et aspect-ratio sont posés
+   par Game.js). Il n'est jamais mis à l'échelle : sa bordure reste nette. */
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* rogne la zone de jeu mise à l'échelle */
+  border-radius: 16px;
+  /* Bordure dessinée en ombre : elle suit l'arrondi sans changer la taille du cadre */
+  box-shadow: 0 0 0 4px var(--frame);
+  background: var(--sky-bottom);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* pas de menu "enregistrer l'image" en appui long (iOS) */
+  touch-action: none; /* un doigt sur le jeu = jouer, jamais défiler ni zoomer */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* La zone de jeu : toujours 800×400 en interne, réduite ou agrandie par transform: scale()
+   depuis le coin haut gauche pour coller exactement au cadre. */
+.game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  overflow: hidden;
+  background: linear-gradient(var(--sky-top), var(--sky-bottom)); /* ciel */
+}
+
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Deux bandes d'herbe (claire puis foncée) répétées ; la taille et le décalage
+     du motif sont réglés dans Game.js pour l'effet de défilement. */
+  background-image: linear-gradient(90deg, var(--grass-light) 0 50%, var(--grass-dark) 50% 100%);
+  background-repeat: repeat-x;
+  border-top: 4px solid var(--ground-edge);
+}
+
+.obstacle,
+.star {
+  position: absolute;
+  line-height: 1;
+}
+
+.hero {
+  position: absolute;
+  line-height: 1; /* la taille (font-size) est réglée par HERO_SIZE dans Game.js */
+}
+
+.hero img {
+  display: block; /* évite un petit espace sous l'image */
+  object-fit: contain;
+}
+
+.hud {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--hud-text);
+  text-shadow: 0 1px 0 var(--hud-shadow);
+}
+
+/* Voile commun aux écrans de départ et de fin */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: var(--overlay);
+  color: var(--overlay-text);
+  text-align: center;
+}
+
+/* Écran de départ : la photo remplit toute la zone (cover), le voile vient par-dessus */
+.startScreen {
+  position: absolute;
+  inset: 0;
+}
+
+.startBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%; /* on garde plutôt le haut de la photo (le visage) */
+}
+
+.startVeil {
+  background: var(--start-veil);
+}
+
+.gameTitle {
+  margin: 0 0 4px;
+  font-size: clamp(1.25rem, 5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.bigTitle {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 900;
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.finalScore {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.levels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.button {
+  padding: 12px 28px;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: var(--button);
+  color: var(--button-text);
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--button-shadow);
+}
+
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--button-shadow);
+}
+
+/* Le niveau choisi est entouré */
+.selected {
+  border-color: var(--button-selected);
+  outline: 3px solid var(--button-shadow);
+}
