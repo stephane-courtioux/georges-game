@@ -1,3 +1,19 @@
+/* ===== Le thème de l'application : toutes les couleurs de l'ambiance sont ici =====
+   Ambiance foot : bleu marine profond, relevé de rouge et de blanc (des couleurs, rien d'autre :
+   aucun logo, écusson ni nom de club). Change ces variables pour changer l'ambiance partout. */
+:root {
+  --fond-marine: #0a1f4d; /* le bleu marine du haut de l'écran */
+  --fond-nuit: #050e2a; /* le bleu nuit du bas de l'écran */
+  --fond-rouge: #d81e2b; /* la touche de rouge (lueurs et fanions) */
+  --fond-blanc: #ffffff; /* le blanc des lignes, ballons et étoiles */
+  --fond-etoile: #ffd23c; /* quelques étoiles dorées */
+  /* Le décor (ballons, lignes, étoiles...) est en filigrane : plus c'est petit, plus il est discret */
+  --decor-opacite: 0.14;
+  --decor-lueur-rouge: 0.55; /* force des lueurs rouges dans les coins */
+  /* Le dégradé de fond, prêt à l'emploi */
+  --fond: linear-gradient(170deg, var(--fond-marine) 0%, #08183d 55%, var(--fond-nuit) 100%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,4 +23,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Le bleu nuit derrière tout : on le voit aussi quand l'iPhone « tire » la page au-delà du bord.
+   Sur <html> seulement : un fond sur <body> passerait par-dessus le décor (z-index négatif). */
+html {
+  background: var(--fond-nuit);
 }

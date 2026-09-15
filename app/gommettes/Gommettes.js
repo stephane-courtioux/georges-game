@@ -433,7 +433,7 @@ export default function Gommettes() {
           </p>
           {b.recompenseGagnee && (
             <p className={styles.recompenseGagnee}>
-              🎁 Bravo Hector, tu as gagné : <strong>{precedente.reglages.recompense}</strong> !
+              🎁 Bravo Georges, tu as gagné : <strong>{precedente.reglages.recompense}</strong> !
             </p>
           )}
           {b.objectifAtteint && b.tropDeRouges && (
@@ -530,7 +530,7 @@ export default function Gommettes() {
       <HomeLink />
 
       <header className={styles.entete}>
-        <h1 className={styles.titre}>⭐ Les gommettes d&apos;Hector</h1>
+        <h1 className={styles.titre}>⭐ Les gommettes de Georges</h1>
         <p className={styles.sousTitre}>Semaine du {formaterDate(lundi)}</p>
         <button type="button" className={styles.boutonDiscret} onClick={() => setVue("historique")}>
           📜 Historique
@@ -566,7 +566,7 @@ export default function Gommettes() {
         <p>
           Si tu atteins ton objectif : <strong>{reglages.recompense}</strong>
         </p>
-        {bilan.recompenseGagnee && <p className={styles.recompenseGagnee}>🎉 Objectif atteint ! Bravo Hector !</p>}
+        {bilan.recompenseGagnee && <p className={styles.recompenseGagnee}>🎉 Objectif atteint ! Bravo Georges !</p>}
         {bilan.objectifAtteint && bilan.tropDeRouges && (
           <p className={styles.alerte}>Objectif atteint, mais trop de rouges cette semaine…</p>
         )}
@@ -659,7 +659,7 @@ export default function Gommettes() {
                       modifier(() => insererGommette(type, raison, lundi));
                     }}
                   >
-                    Hector {raison}
+                    Georges {raison}
                   </button>
                 ))}
               </div>

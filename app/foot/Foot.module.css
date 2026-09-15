@@ -1,0 +1,319 @@
+/* Les couleurs viennent des variables --xxx posées sur .frame par Foot.js (objet THEME). */
+
+/* Le cadre : prend toute la largeur disponible (max-width et aspect-ratio sont posés
+   par Foot.js). Il n'est jamais mis à l'échelle : sa bordure reste nette. */
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* rogne la zone de jeu mise à l'échelle */
+  border-radius: 16px;
+  /* Bordure dessinée en ombre : elle suit l'arrondi sans changer la taille du cadre */
+  box-shadow: 0 0 0 4px var(--frame);
+  background: var(--herbe-foncee);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* pas de menu "enregistrer l'image" en appui long (iOS) */
+  touch-action: none; /* un doigt sur le jeu = jouer, jamais défiler ni zoomer */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* La zone de jeu : toujours 800×400 en interne, réduite ou agrandie par transform: scale()
+   depuis le coin haut gauche pour coller exactement au cadre. */
+.game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  overflow: hidden;
+  /* La pelouse : des bandes verticales claires et foncées, comme un vrai terrain tondu */
+  background: repeating-linear-gradient(
+    90deg,
+    var(--herbe-claire) 0 80px,
+    var(--herbe-foncee) 80px 160px
+  );
+}
+
+/* --- Les lignes du terrain --- */
+
+.ligneTouche {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--lignes);
+}
+
+/* Le rond central, dont on ne voit que la moitié droite, tout à gauche */
+.rondCentral {
+  position: absolute;
+  left: -120px;
+  top: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translateY(-50%);
+  border: 4px solid var(--lignes);
+  border-radius: 50%;
+}
+
+/* La surface de réparation, devant le but */
+.surface {
+  position: absolute;
+  border: 4px solid var(--lignes);
+  border-right: none;
+}
+
+.pointPenalty {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  background: var(--lignes);
+  border-radius: 50%;
+}
+
+/* --- Le but --- */
+
+/* Le poteau (à gauche, c'est l'entrée de la cage), la barre en haut et en bas,
+   et le filet dessiné avec des mailles (deux dégradés répétés qui se croisent). */
+.but {
+  position: absolute;
+  border: 6px solid var(--poteaux);
+  border-right-width: 4px;
+  box-sizing: border-box;
+  background-image:
+    repeating-linear-gradient(0deg, var(--filet) 0 2px, transparent 2px 12px),
+    repeating-linear-gradient(90deg, var(--filet) 0 2px, transparent 2px 12px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* --- Le gardien : rouge à manches blanches --- */
+
+.gardien {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.3));
+}
+
+.gardienTete {
+  width: 40%;
+  height: 22%;
+  background: var(--gardien-peau);
+  border-radius: 50%;
+  /* les cheveux : un demi-cercle sombre par-dessus */
+  box-shadow: inset 0 5px 0 var(--gardien-cheveux);
+}
+
+/* Le maillot : rouge au milieu, blanc sur les côtés (les manches, bras écartés) */
+.gardienCorps {
+  width: 100%;
+  height: 34%;
+  background: linear-gradient(
+    90deg,
+    var(--gardien-manches) 0 22%,
+    var(--gardien-maillot) 22% 78%,
+    var(--gardien-manches) 78% 100%
+  );
+  border-radius: 6px 6px 3px 3px;
+}
+
+.gardienShort {
+  width: 56%;
+  height: 16%;
+  background: var(--gardien-short);
+}
+
+/* Les jambes : deux chaussettes rouges */
+.gardienJambes {
+  width: 56%;
+  height: 28%;
+  background: linear-gradient(
+    90deg,
+    var(--gardien-maillot) 0 40%,
+    transparent 40% 60%,
+    var(--gardien-maillot) 60% 100%
+  );
+}
+
+/* --- Le ballon : blanc à taches sombres --- */
+
+.ballon {
+  position: absolute;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, var(--ballon-motif) 0 22%, transparent 23%),
+    radial-gradient(circle at 15% 40%, var(--ballon-motif) 0 14%, transparent 15%),
+    radial-gradient(circle at 85% 40%, var(--ballon-motif) 0 14%, transparent 15%),
+    radial-gradient(circle at 35% 90%, var(--ballon-motif) 0 14%, transparent 15%),
+    radial-gradient(circle at 65% 90%, var(--ballon-motif) 0 14%, transparent 15%),
+    var(--ballon);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* --- Georges --- */
+
+.georges {
+  position: absolute;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.3));
+}
+
+.georges img {
+  display: block; /* évite un petit espace sous l'image */
+  object-fit: contain;
+}
+
+/* Repli si l'image ne charge pas : un cercle bleu marine avec une bande rouge et un liseré blanc */
+.georgesRepli {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid var(--georges-blanc);
+  box-sizing: border-box;
+  background: linear-gradient(
+    90deg,
+    var(--georges-maillot) 0 40%,
+    var(--georges-bande) 40% 60%,
+    var(--georges-maillot) 60% 100%
+  );
+}
+
+/* --- Le score, en haut --- */
+
+.hud {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--hud-text);
+  text-shadow: 0 2px 4px var(--hud-shadow);
+}
+
+/* « BUT ! » ou « Arrêt ! », qui grossit d'un coup au milieu de l'écran */
+.message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  animation: pop 0.25s ease-out;
+}
+
+.messageBut {
+  color: var(--message-but);
+}
+
+.messageArret {
+  color: var(--message-arret);
+  font-size: 3rem;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- Écrans de départ et de fin --- */
+
+/* Voile commun aux écrans de départ et de fin */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: var(--overlay);
+  color: var(--overlay-text);
+  text-align: center;
+}
+
+/* Écran de départ : la photo remplit toute la zone (cover), le voile vient par-dessus */
+.startScreen {
+  position: absolute;
+  inset: 0;
+}
+
+.startBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%; /* on garde plutôt le haut de la photo (le visage) */
+}
+
+.startVeil {
+  background: var(--start-veil);
+}
+
+.gameTitle {
+  margin: 0 0 4px;
+  font-size: clamp(1.25rem, 5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.bigTitle {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 900;
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.finalScore {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.levels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.button {
+  padding: 12px 28px;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: var(--button);
+  color: var(--button-text);
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--button-shadow);
+}
+
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--button-shadow);
+}

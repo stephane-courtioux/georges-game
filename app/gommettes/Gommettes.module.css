@@ -12,7 +12,7 @@
   padding-right: max(16px, env(safe-area-inset-right));
   padding-bottom: max(24px, env(safe-area-inset-bottom));
   padding-left: max(16px, env(safe-area-inset-left));
-  background: linear-gradient(160deg, #38c9a5, #2f9be6, #7b3cff);
+  background: transparent; /* le fond (dégradé + décor foot) est dessiné par app/Decor.js */
   color: #2b1d4f;
   /* Confort iPhone : pas de sélection de texte ni de menu d'appui long, tap réactif */
   user-select: none;
@@ -26,7 +26,7 @@
   display: grid;
   place-items: center;
   margin: 0;
-  background: linear-gradient(160deg, #38c9a5, #2f9be6, #7b3cff);
+  background: transparent; /* le fond (dégradé + décor foot) est dessiné par app/Decor.js */
   color: #fff;
   font-weight: 700;
 }

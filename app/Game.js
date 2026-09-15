@@ -5,8 +5,8 @@ import styles from "./Game.module.css";
 
 // --- Réglages faciles à changer ---
 const HERO = "🦸"; // l'emoji du héros (utilisé si l'image ne charge pas)
-const HERO_IMG = "/hector-hero.png"; // l'image du héros (dans le dossier public/)
-const GAME_TITLE = "Super Hector"; // le titre affiché sur l'écran de départ
+const HERO_IMG = "/georges-hero.png"; // l'image du héros (dans le dossier public/)
+const GAME_TITLE = "Super Georges"; // le titre affiché sur l'écran de départ
 const HERO_SIZE = 64; // taille du héros (px), pour l'image comme pour l'emoji
 const HERO_X = 80; // position du héros depuis la gauche (px)
 const OBSTACLE = "🌵"; // l'emoji des obstacles
@@ -421,7 +421,7 @@ export default function Game() {
           // eslint-disable-next-line @next/next/no-img-element -- balise <img> simple, pas besoin de next/image ici
           <img
             src={HERO_IMG}
-            alt="Hector"
+            alt="Georges"
             width={HERO_SIZE}
             height={HERO_SIZE}
             draggable={false}

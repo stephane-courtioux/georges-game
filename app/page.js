@@ -4,7 +4,8 @@ import styles from "./page.module.css";
 // Le menu d'accueil : une tuile par jeu.
 const JEUX = [
   { href: "/coureur", emoji: "🏃", titre: "Le coureur", sousTitre: "Saute par-dessus les cactus" },
-  { href: "/gommettes", emoji: "⭐", titre: "Les gommettes d'Hector", sousTitre: "Gagne ta récompense de la semaine" },
+  { href: "/gommettes", emoji: "⭐", titre: "Les gommettes de Georges", sousTitre: "Gagne ta récompense de la semaine" },
+  { href: "/foot", emoji: "⚽", titre: "Georges buteur", sousTitre: "Trompe le gardien et marque des buts" },
 ];
 
 export default function Home() {
@@ -12,9 +13,9 @@ export default function Home() {
     <main className={styles.main}>
       {/* Décoration : le héros dépasse du coin haut gauche */}
       {/* eslint-disable-next-line @next/next/no-img-element -- image décorative simple */}
-      <img src="/hector-hero.png" alt="" className={styles.decor} draggable={false} />
+      <img src="/georges-hero.png" alt="" className={styles.decor} draggable={false} />
 
-      <h1 className={styles.title}>SUPER HECTOR</h1>
+      <h1 className={styles.title}>SUPER GEORGES</h1>
       <p className={styles.hint}>Choisis ton jeu</p>
 
       <nav className={styles.tiles}>

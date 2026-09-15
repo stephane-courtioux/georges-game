@@ -12,7 +12,7 @@
   padding-right: max(16px, env(safe-area-inset-right));
   padding-bottom: max(24px, env(safe-area-inset-bottom));
   padding-left: max(16px, env(safe-area-inset-left));
-  background: linear-gradient(135deg, #ff9a3c, #ff3c8e, #7b3cff);
+  background: transparent; /* le fond (dégradé + décor foot) est dessiné par app/Decor.js */
 }
 
 /* Le héros en grand dans le coin haut gauche, derrière le titre et les tuiles */
